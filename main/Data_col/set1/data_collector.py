@@ -12,8 +12,8 @@ import pickle
 # 2 = bitfinex
 
 async def getURL(url):
-    req = urllib.request.Request(url, headers={'User-Agent' : "Magic Browser"}) 
-    con = urllib.request.urlopen(req) 
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+    con = urllib.request.urlopen(req)
 
     data = con.read().decode('utf-8')
     jdata = json.loads(data)
@@ -59,9 +59,15 @@ if __name__ == "__main__":
     index = 1
     start = dt.datetime.now()
     while(True):
-        s = time.perf_counter()
-        asyncio.run(runOrderbook())
-        print(f"{index} \tTtC: {time.perf_counter() - s:.3f} \tCurrent Price: {tPrice:.2f} \t{dt.datetime.now() - start} \t{dt.datetime.now()}")
+        try:
+            s = time.perf_counter()
+            asyncio.run(runOrderbook())
+            print(f"{index} \tTtC: {time.perf_counter() - s:.3f} \tCurrent Price: {tPrice:.2f} \t{dt.datetime.now() - start} \t{dt.datetime.now()}")
 
-        time.sleep(1)
-        index += 1
+            time.sleep(1.1)
+            index += 1
+        except:
+            pass
+
+
+# import asynio
